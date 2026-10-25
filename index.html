@@ -241,7 +241,7 @@
         <p style="font-size: 14px; margin-top: 5px; opacity: 0.8;">Đồng hành cùng giai đoạn tuổi vàng rực rỡ và bình an.</p>
     </footer>
 
-    <!-- JavaScript Xử Lý -->
+    <!-- JavaScript Xử Lý Đã Chỉnh Giọng Đọc Trầm Ấm -->
     <script>
         function setFontSize(size) {
             document.body.style.fontSize = size + 'px';
@@ -252,13 +252,46 @@
         }
 
         let currentSpeech = null;
+        let voices = [];
+
+        // Nạp danh sách giọng đọc của hệ thống
+        function loadVoices() {
+            if ('speechSynthesis' in window) {
+                voices = window.speechSynthesis.getVoices();
+            }
+        }
+        loadVoices();
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
         function speakText(text) {
+            if (!('speechSynthesis' in window)) {
+                alert("Trình duyệt của bạn không hỗ trợ tính năng đọc tự động.");
+                return;
+            }
+
             window.speechSynthesis.cancel();
             currentSpeech = new SpeechSynthesisUtterance(text);
+
+            // Tìm giọng tiếng Việt tự nhiên và ấm áp nhất
+            let viVoice = voices.find(v => v.lang.includes('vi') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Online')));
+            if (!viVoice) {
+                viVoice = voices.find(v => v.lang.includes('vi'));
+            }
+
+            if (viVoice) {
+                currentSpeech.voice = viVoice;
+            }
+
             currentSpeech.lang = 'vi-VN';
-            currentSpeech.rate = 0.9;
+            currentSpeech.rate = 0.82; // Tốc độ thong dong, vừa phải
+            currentSpeech.pitch = 0.85; // Tông giọng trầm ấm, dịu dàng
+
             document.getElementById('stop-btn').style.display = 'inline-block';
             currentSpeech.onend = () => document.getElementById('stop-btn').style.display = 'none';
+            currentSpeech.onerror = () => document.getElementById('stop-btn').style.display = 'none';
+
             window.speechSynthesis.speak(currentSpeech);
         }
 
@@ -291,16 +324,4 @@
             } else if (score <= 7) {
                 msg = "<strong>Mức độ: Đã có sự chuẩn bị bước đầu.</strong><br>Bạn đã có nhận thức tích cực và bắt đầu hình thành các thói quen tốt. Tiếp tục duy trì các mục tiêu ý nghĩa cho chương đời mới nhé!";
             } else {
-                msg = "<strong>Mức độ: Sẵn sàng tuyệt đối cho Tuổi Vàng An Yên!</strong><br>Bạn đang sở hữu tâm thế vô cùng chủ động, cởi mở và tràn đầy năng lượng để tận hưởng giai đoạn hưu trí rực rỡ nhất.";
-            }
-            resBox.innerHTML = msg;
-        }
-
-        function handleForm(e) {
-            e.preventDefault();
-            document.getElementById('form-msg').style.display = 'block';
-            e.target.reset();
-        }
-    </script>
-</body>
-</html>
+                msg = "<strong>Mức độ: Sẵn sàng tuyệt đối cho Tuổi Vàng An Yên!</strong><br>Bạn đang sở hữu tâm thế vô cùng chủ động, cởi mở và tràn đầy năng lượng để tận hưởng
