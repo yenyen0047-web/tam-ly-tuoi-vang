@@ -1,42 +1,240 @@
-# Tâm Lý Tuổi Vàng — MVP Starter
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tâm Lý Tuổi Vàng | Đồng hành cùng chương đời mới</title>
+<style>
+:root{--bg:#fbf9f5;--panel:#fff;--panel2:#f3efe6;--text:#334155;--muted:#64748b;--green:#4a7c59;--green2:#2a4933;--terra:#c86d51;--border:#dedbd2;--focus:#2563eb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}body.dark{--bg:#0f172a;--panel:#1e293b;--panel2:#243247;--text:#f1f5f9;--muted:#cbd5e1;--green:#79ad88;--green2:#d7e9dc;--terra:#e28a6c;--border:#475569}
+button,input,textarea,select{font:inherit}button,a,input,textarea,select{touch-action:manipulation}button{cursor:pointer}a{color:var(--green);text-underline-offset:3px}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:auto}.skip:focus{left:1rem;top:1rem;z-index:99;background:var(--panel);padding:.7rem}
+.toolbar{position:sticky;top:0;z-index:10;background:var(--panel2);border-bottom:1px solid var(--border);padding:.65rem max(1rem,calc((100% - 1120px)/2));display:flex;gap:.6rem;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.toolbar button,.btn,.navbtn{border:1px solid var(--border);border-radius:.6rem;padding:.55rem .85rem;background:var(--panel);color:var(--text);font-weight:650}
+.btn.primary{background:var(--terra);border-color:var(--terra);color:white}.btn.green{background:var(--green);border-color:var(--green);color:white}
+header{padding:2rem 1rem 1.5rem;text-align:center;background:var(--panel)}h1{color:var(--green2);font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;margin:.2rem 0 .6rem}h2{line-height:1.25;color:var(--green2);font-size:clamp(1.45rem,3vw,2rem)}h3{line-height:1.3;color:var(--green2)}.lead{max-width:760px;margin:auto;color:var(--muted)}
+nav{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;margin-top:1.25rem}.navbtn[aria-current="page"]{background:var(--green);color:white;border-color:var(--green)}
+.hero{background:var(--green);color:white;text-align:center;padding:2.5rem 1rem}.hero h2{color:white}.hero p{max-width:780px;margin:0 auto 1.2rem}
+main{max-width:1120px;margin:2rem auto;padding:0 1rem}.view{display:none}.view.active{display:block}.panel{background:var(--panel);border:1px solid var(--border);border-radius:1rem;padding:clamp(1rem,3vw,1.6rem);margin-bottom:1.2rem;box-shadow:0 3px 12px #00000008}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem}.card{background:var(--panel2);border-left:5px solid var(--green);border-radius:.7rem;padding:1rem}.card.alt{border-left-color:var(--terra)}.muted{color:var(--muted)}.small{font-size:.9rem}.tag{font-size:.8rem;font-weight:700;color:var(--green)}
+label{display:block;font-weight:650;margin:.65rem 0 .25rem}input[type=text],input[type=email],input[type=tel],input[type=date],input[type=time],textarea,select,input[type=search]{width:100%;padding:.7rem;border:1px solid var(--border);border-radius:.55rem;background:var(--panel);color:var(--text)}textarea{min-height:120px;resize:vertical}.option{display:flex;gap:.6rem;align-items:flex-start;background:var(--panel);padding:.7rem;border:1px solid var(--border);border-radius:.6rem;margin:.5rem 0;font-weight:400}.option input{margin-top:.45rem;min-width:1.1rem;min-height:1.1rem}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}.notice{border-left:4px solid var(--terra);background:var(--panel2);padding:.8rem 1rem;border-radius:.4rem}.success{border-left-color:var(--green)}.result{margin-top:1rem;padding:1rem;border-radius:.7rem;background:var(--panel2)}.article-body{display:none;margin-top:1rem;border-top:1px solid var(--border);padding-top:1rem}.article-body.open{display:block}.hidden{display:none!important}
+footer{margin-top:3rem;background:var(--green2);color:white;padding:2rem 1rem;text-align:center}footer a{color:white}
+progress{width:100%;height:1rem;accent-color:var(--green)}.metric{display:flex;justify-content:space-between;gap:1rem}.pill{border:1px solid var(--border);border-radius:999px;padding:.15rem .6rem;font-size:.8rem}
+@media(max-width:600px){body{font-size:17px}.toolbar{position:static}.navbtn{flex:1 1 42%;font-size:.95rem}.panel{padding:1rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua điều hướng, đến nội dung chính</a>
+<div class="toolbar">
+  <div><strong>Hỗ trợ đọc:</strong> <button type="button" data-font="16" aria-label="Giảm cỡ chữ">A−</button> <button type="button" data-font="18" aria-label="Cỡ chữ mặc định">A</button> <button type="button" data-font="21" aria-label="Tăng cỡ chữ">A+</button></div>
+  <div><button id="themeToggle" type="button" aria-pressed="false">🌙 Chế độ tối</button> <button id="stopRead" type="button" hidden>⏹ Dừng đọc</button></div>
+</div>
+<header>
+  <p class="tag">TÂM LÝ TUỔI VÀNG</p>
+  <h1>Chuẩn bị tâm thế — sống chương đời mới an yên</h1>
+  <p class="lead">Không có một cách nghỉ hưu đúng cho tất cả mọi người. Hãy bắt đầu bằng việc hiểu điều mình cần, khám phá nguồn lực hiện có và chọn một bước nhỏ phù hợp.</p>
+  <nav aria-label="Điều hướng chính">
+    <button class="navbtn" data-view="home" aria-current="page">Trang chủ</button>
+    <button class="navbtn" data-view="assessment">Tự đánh giá</button>
+    <button class="navbtn" data-view="articles">Thư viện kiến thức</button>
+    <button class="navbtn" data-view="plan">Kế hoạch 30 ngày</button>
+    <button class="navbtn" data-view="support">Yêu cầu hỗ trợ</button>
+    <button class="navbtn" data-view="booking">Đặt lịch</button>
+    <button class="navbtn" data-view="admin">Quản trị demo</button>
+  </nav>
+</header>
+<section class="hero">
+  <h2>Hưu trí không chỉ là rời công việc</h2>
+  <p>Đó còn là cơ hội định nghĩa lại nhịp sống, mối quan hệ, vai trò và những điều mang lại ý nghĩa cho mình.</p>
+  <button class="btn primary" id="introRead">🔊 Nghe giới thiệu</button>
+</section>
+<main id="main">
+<section class="view active" id="view-home" aria-labelledby="homeTitle">
+  <div class="panel">
+    <span class="tag">BẮT ĐẦU TỪ ĐÂU?</span><h2 id="homeTitle">Chọn bước phù hợp với bạn</h2>
+    <div class="grid">
+      <article class="card"><h3>Hiểu mình</h3><p>Khám phá cảm nhận hiện tại về bản sắc, cảm xúc, kết nối và kế hoạch sống.</p><button class="btn green" data-goto="assessment">Làm tự đánh giá</button></article>
+      <article class="card alt"><h3>Học và thực hành</h3><p>Đọc kiến thức tâm lý và thử một bài tập nhỏ theo nhịp độ của riêng bạn.</p><button class="btn" data-goto="articles">Khám phá bài viết</button></article>
+      <article class="card"><h3>Lập kế hoạch</h3><p>Chọn mục tiêu nhỏ trong 30 ngày, không cần thay đổi mọi thứ cùng lúc.</p><button class="btn green" data-goto="plan">Tạo kế hoạch</button></article>
+    </div>
+  </div>
+  <div class="notice"><strong>Lưu ý:</strong> Website cung cấp nội dung giáo dục và tự phản tư, không chẩn đoán hay thay thế đánh giá, tham vấn hoặc điều trị bởi chuyên gia. Nếu bạn đang gặp nguy hiểm tức thời, hãy liên hệ dịch vụ khẩn cấp tại nơi bạn sống hoặc người hỗ trợ đáng tin cậy.</div>
+</section>
 
-## Nội dung
-- `prototype/index.html`: prototype tương tác chạy trực tiếp trong trình duyệt.
-- `docs/MVP_SPEC.md`: đặc tả MVP, luồng nghiệp vụ, mô hình dữ liệu, API và tiêu chí nghiệm thu.
-- `backend/schema.prisma`: phác thảo mô hình dữ liệu cho backend tương lai.
+<section class="view" id="view-assessment" aria-labelledby="assessmentTitle">
+  <div class="panel">
+    <span class="tag">TỰ PHẢN TƯ · KHÔNG PHẢI CHẨN ĐOÁN</span><h2 id="assessmentTitle">Bạn đang chuẩn bị cho giai đoạn nghỉ hưu như thế nào?</h2>
+    <p>Chọn câu trả lời gần với trải nghiệm của bạn trong thời gian gần đây. Không có đáp án đúng hoặc sai. Bài tự phản tư này chưa phải thang đo tâm lý được kiểm định.</p>
+    <form id="assessmentForm">
+      <div id="questions"></div>
+      <div class="actions"><button class="btn primary" type="submit">Xem kết quả tự phản tư</button><button class="btn" type="reset">Làm lại</button></div>
+    </form>
+    <div id="assessmentResult" class="result" aria-live="polite" hidden></div>
+  </div>
+</section>
 
-## Chạy prototype
-Mở `prototype/index.html` bằng trình duyệt hiện đại. Không cần cài đặt.
+<section class="view" id="view-articles" aria-labelledby="articlesTitle">
+  <div class="panel">
+    <span class="tag">THƯ VIỆN TRI THỨC</span><h2 id="articlesTitle">Bài viết và tài nguyên thực hành</h2>
+    <label for="articleSearch">Tìm theo tiêu đề hoặc nội dung</label><input id="articleSearch" type="search" placeholder="Ví dụ: bản sắc, gia đình, cảm xúc">
+    <label for="articleCategory">Lọc theo chủ đề</label><select id="articleCategory"><option value="all">Tất cả chủ đề</option><option value="identity">Bản sắc và vai trò</option><option value="family">Gia đình và quan hệ</option><option value="emotion">Cảm xúc và thích nghi</option><option value="wellbeing">Sức khỏe tinh thần</option></select>
+    <div id="articleList" class="grid" style="margin-top:1rem"></div>
+  </div>
+</section>
 
-Prototype hiện có:
-- Điều hướng các phân hệ
-- Tự đánh giá 6 lĩnh vực (giáo dục/tự phản tư, không chẩn đoán)
-- Tìm kiếm và lọc bài viết, đọc bằng speech synthesis của trình duyệt
-- Kế hoạch 30 ngày và nhật ký cục bộ
-- Form yêu cầu hỗ trợ demo
-- Form đặt lịch demo và hủy lịch demo
-- Bảng quản trị demo, xóa dữ liệu demo
-- Tăng cỡ chữ, chế độ tối, hỗ trợ bàn phím cơ bản
+<section class="view" id="view-plan" aria-labelledby="planTitle">
+  <div class="panel">
+    <span class="tag">THỰC HÀNH TỪNG BƯỚC</span><h2 id="planTitle">Kế hoạch 30 ngày của tôi</h2>
+    <p>Chọn một mục tiêu nhỏ, có thể thực hiện và có ý nghĩa với bạn. Bản demo lưu nội dung trên trình duyệt hiện tại; đừng nhập thông tin định danh hoặc chi tiết nhạy cảm.</p>
+    <form id="planForm">
+      <label for="goal">Mục tiêu 30 ngày</label><input id="goal" type="text" maxlength="180" required placeholder="Ví dụ: gọi điện cho một người bạn mỗi tuần">
+      <label for="whyGoal">Vì sao mục tiêu này quan trọng với tôi?</label><textarea id="whyGoal" maxlength="1000" placeholder="Viết vài dòng, không cần chia sẻ thông tin riêng tư"></textarea>
+      <label for="firstStep">Bước nhỏ đầu tiên trong 48 giờ</label><input id="firstStep" type="text" maxlength="180" required placeholder="Một việc cụ thể, dễ bắt đầu">
+      <div class="actions"><button class="btn primary" type="submit">Lưu kế hoạch trên thiết bị</button><button class="btn" type="button" id="loadPlan">Tải kế hoạch đã lưu</button></div>
+    </form>
+    <div id="planStatus" class="result" aria-live="polite" hidden></div>
+  </div>
+  <div class="panel">
+    <h3>Nhật ký tự phản tư</h3>
+    <p class="muted">Dùng câu hỏi gợi mở thay vì cố đánh giá bản thân là tốt hay xấu.</p>
+    <form id="journalForm">
+      <label for="journalPrompt">Câu hỏi hôm nay</label><select id="journalPrompt"><option>Điều gì đã mang lại ý nghĩa cho tôi hôm nay?</option><option>Cảm xúc nào xuất hiện và điều gì có thể góp phần tạo nên nó?</option><option>Tôi muốn duy trì điều gì trong chương đời tiếp theo?</option><option>Tôi có thể nhờ ai hỗ trợ một việc nhỏ?</option></select>
+      <label for="journalText">Ghi chú riêng tư</label><textarea id="journalText" maxlength="2000" placeholder="Bạn có thể bỏ qua câu hỏi nếu chưa muốn viết."></textarea>
+      <div class="actions"><button class="btn green" type="submit">Lưu ghi chú trên thiết bị</button><button class="btn" type="button" id="clearJournal">Xóa ghi chú đã lưu</button></div>
+    </form>
+    <div id="journalStatus" class="result" aria-live="polite" hidden></div>
+  </div>
+  <div class="notice">Bản demo dùng bộ nhớ cục bộ của trình duyệt. Đây không phải nơi lưu trữ an toàn cho hồ sơ tâm lý dài hạn. Phiên bản dịch vụ thật cần đăng nhập, phân quyền, mã hóa và chính sách lưu/xóa dữ liệu.</div>
+</section>
 
-## CẢNH BÁO QUAN TRỌNG
-Đây là prototype frontend, không phải hệ thống dịch vụ vận hành thực tế:
-- Form yêu cầu hỗ trợ và đặt lịch chỉ lưu trên trình duyệt; không gửi đến chuyên gia.
-- Không có đăng nhập, backend, phân quyền thật, lịch trống thật, gửi email/SMS hay cơ chế quản trị an toàn.
-- Dữ liệu trong localStorage có thể tồn tại trên thiết bị dùng chung. Không nhập dữ liệu định danh hoặc thông tin tâm lý nhạy cảm.
-- Không triển khai prototype trực tiếp làm dịch vụ cho người dùng thật.
+<section class="view" id="view-support" aria-labelledby="supportTitle">
+  <div class="panel">
+    <span class="tag">KẾT NỐI HỖ TRỢ</span><h2 id="supportTitle">Gửi yêu cầu hỗ trợ</h2>
+    <p>Chỉ cung cấp thông tin tối thiểu cần thiết. Trong bản demo này, biểu mẫu chỉ được lưu trên trình duyệt, chưa gửi tới chuyên gia.</p>
+    <form id="supportForm">
+      <label for="supportAlias">Tên gọi hoặc biệt danh (không bắt buộc)</label><input id="supportAlias" type="text" maxlength="80" autocomplete="nickname" placeholder="Bạn muốn được gọi là gì?">
+      <label for="supportContact">Email hoặc số điện thoại để liên hệ (không bắt buộc)</label><input id="supportContact" type="text" maxlength="160" autocomplete="off" placeholder="Chỉ nhập nếu muốn được liên hệ">
+      <label for="supportTopic">Chủ đề cần hỗ trợ</label><select id="supportTopic" required><option value="">Chọn một chủ đề</option><option>Thích nghi với nghỉ hưu</option><option>Cảm xúc và cô đơn</option><option>Gia đình và quan hệ</option><option>Mục đích sống và vai trò</option><option>Khác</option></select>
+      <label for="supportMessage">Mô tả ngắn (không nhập thông tin quá riêng tư)</label><textarea id="supportMessage" maxlength="1500" required placeholder="Bạn mong muốn được hỗ trợ điều gì?"></textarea>
+      <label class="option"><input id="supportConsent" type="checkbox" required><span>Tôi đã đọc thông báo quyền riêng tư của bản demo và đồng ý lưu thông tin này trên thiết bị hiện tại để xem luồng tiếp nhận thử nghiệm.</span></label>
+      <div class="actions"><button class="btn primary" type="submit">Tạo yêu cầu demo</button></div>
+    </form>
+    <div id="supportStatus" class="result" aria-live="polite" hidden></div>
+  </div>
+</section>
 
-## Bước phát triển tiếp theo
-1. Chốt đơn vị chịu trách nhiệm, vai trò chuyên gia và phạm vi dịch vụ.
-2. Chọn stack backend và nhà cung cấp xác thực/hosting.
-3. Triển khai schema, migrations, authentication, RBAC và API.
-4. Chuyển lưu trữ nhật ký/yêu cầu từ localStorage sang server có kiểm soát truy cập.
-5. Tích hợp lịch chuyên gia thực, thông báo và quy trình hủy.
-6. Rà soát nội dung chuyên môn, quyền riêng tư, bảo mật và quy định pháp lý hiện hành tại Việt Nam.
-7. Kiểm thử bảo mật và khả năng tiếp cận trước khi công khai.
+<section class="view" id="view-booking" aria-labelledby="bookingTitle">
+  <div class="panel">
+    <span class="tag">LỊCH HẸN</span><h2 id="bookingTitle">Đặt lịch trao đổi với chuyên gia</h2>
+    <p>Đây là luồng minh họa. Lịch hiển thị không đại diện cho lịch trống thật; không có chuyên gia nào được đặt lịch từ bản demo này.</p>
+    <form id="bookingForm">
+      <label for="bookingType">Hình thức trao đổi</label><select id="bookingType" required><option value="">Chọn hình thức</option><option>Trực tuyến</option><option>Trực tiếp</option></select>
+      <label for="bookingDate">Ngày mong muốn</label><input id="bookingDate" type="date" required>
+      <label for="bookingSlot">Khung giờ minh họa</label><select id="bookingSlot" required><option value="">Chọn khung giờ</option><option>09:00–09:30 (minh họa)</option><option>10:00–10:30 (minh họa)</option><option>14:00–14:30 (minh họa)</option><option>15:00–15:30 (minh họa)</option></select>
+      <label for="bookingAlias">Tên gọi hoặc biệt danh</label><input id="bookingAlias" type="text" maxlength="80" required>
+      <label for="bookingContact">Thông tin liên hệ</label><input id="bookingContact" type="text" maxlength="160" required placeholder="Email hoặc số điện thoại">
+      <label class="option"><input id="bookingConsent" type="checkbox" required><span>Tôi đồng ý lưu thông tin đặt lịch thử nghiệm trên thiết bị hiện tại.</span></label>
+      <div class="actions"><button class="btn primary" type="submit">Tạo lịch hẹn demo</button><button class="btn" type="button" id="cancelBooking">Hủy lịch demo đã lưu</button></div>
+    </form>
+    <div id="bookingStatus" class="result" aria-live="polite" hidden></div>
+  </div>
+</section>
 
-## Gợi ý lệnh Git
-```bash
-git init
-git add .
-git commit -m "Initial Tâm Lý Tuổi Vàng MVP prototype"
-```
+<section class="view" id="view-admin" aria-labelledby="adminTitle">
+  <div class="panel">
+    <span class="tag">CHỈ DÀNH CHO TRÌNH DIỄN</span><h2 id="adminTitle">Bảng quản trị demo</h2>
+    <div class="notice"><strong>Không phải trang quản trị an toàn.</strong> Không có đăng nhập, phân quyền máy chủ hoặc dữ liệu dùng chung. Không triển khai bản demo này với thông tin người dùng thật.</div>
+    <h3>Yêu cầu hỗ trợ được tạo trên trình duyệt này</h3><div id="adminRequests" class="grid"></div>
+    <h3 style="margin-top:1.5rem">Lịch hẹn demo</h3><div id="adminBookings" class="grid"></div>
+    <h3 style="margin-top:1.5rem">Bài viết mẫu</h3><div id="adminArticles" class="grid"></div>
+    <div class="actions"><button class="btn" type="button" id="refreshAdmin">Làm mới danh sách</button><button class="btn" type="button" id="clearDemoData">Xóa dữ liệu demo trên thiết bị</button></div>
+    <p id="adminStatus" class="muted" aria-live="polite"></p>
+  </div>
+</section>
+</main>
+<footer><p><strong>Tâm Lý Tuổi Vàng</strong></p><p>Giáo dục tâm lý · Tự phản tư · Kết nối hỗ trợ</p><p class="small">Bản MVP trình diễn — chưa phải dịch vụ tư vấn trực tuyến vận hành thực tế.</p></footer>
+<script>
+"use strict";
+const $ = (s, root=document) => root.querySelector(s);
+const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+const STORE = {plan:"tyv_demo_plan_v1", journal:"tyv_demo_journal_v1", requests:"tyv_demo_requests_v1", bookings:"tyv_demo_bookings_v1"};
+const safeRead = key => { try { return JSON.parse(localStorage.getItem(key) || "null"); } catch { return null; } };
+const safeWrite = (key,value) => { try { localStorage.setItem(key,JSON.stringify(value)); return true; } catch { return false; } };
+const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function showView(name){ $$(".view").forEach(v=>v.classList.toggle("active",v.id===`view-${name}`)); $$(".navbtn").forEach(b=>{if(b.dataset.view===name)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")}); if(name==="admin")renderAdmin(); const h=$(`#view-${name} h2`); if(h)h.setAttribute("tabindex","-1"),h.focus({preventScroll:true}); window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+$$("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+$$("[data-goto]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.goto)));
+$$("[data-font]").forEach(b=>b.addEventListener("click",()=>document.body.style.fontSize=b.dataset.font+"px"));
+$("#themeToggle").addEventListener("click",e=>{const dark=document.body.classList.toggle("dark");e.currentTarget.setAttribute("aria-pressed",String(dark));e.currentTarget.textContent=dark?"☀️ Chế độ sáng":"🌙 Chế độ tối";});
+let utterance=null;
+async function speak(text){
+  if (!("speechSynthesis" in window)) { alert("Trình duyệt này chưa hỗ trợ đọc văn bản."); return; }
+  const synth = window.speechSynthesis;
+  synth.cancel();
+  let voices = synth.getVoices();
+  // Some browsers load system voices asynchronously. Wait briefly for them.
+  if (!voices.length) {
+    voices = await new Promise(resolve => {
+      let done = false;
+      const finish = () => { if (!done) { done = true; resolve(synth.getVoices()); } };
+      synth.addEventListener("voiceschanged", finish, { once: true });
+      window.setTimeout(finish, 1500);
+    });
+  }
+  const vi = voices.find(v => /^vi(-|$)/i.test(v.lang));
+  if (!vi) {
+    alert("Máy/trình duyệt hiện chưa cung cấp giọng đọc tiếng Việt. Website đã ngừng đọc thay vì dùng nhầm giọng tiếng Anh. Hãy thử mở bằng Microsoft Edge hoặc cài thêm giọng Vietnamese trong cài đặt Speech của Windows, rồi tải lại trang.");
+    return;
+  }
+  utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = vi.lang || "vi-VN";
+  utterance.voice = vi;
+  utterance.rate = 0.88;
+  $("#stopRead").hidden = false;
+  utterance.onend = utterance.onerror = () => $("#stopRead").hidden = true;
+  synth.speak(utterance);
+}
+$("#introRead").addEventListener("click",()=>speak("Chào mừng bạn đến với Tâm Lý Tuổi Vàng. Website đồng hành cùng người trung niên và người chuẩn bị nghỉ hưu thông qua kiến thức tâm lý, tự phản tư và kế hoạch sống."));
+$("#stopRead").addEventListener("click",()=>{if("speechSynthesis"in window)speechSynthesis.cancel();$("#stopRead").hidden=true;});
+const questions=[
+{cat:"Bản sắc và vai trò",q:"Khi nghĩ đến việc rời công việc, tôi có thể nhận ra những giá trị của bản thân ngoài chức danh nghề nghiệp.",opts:["Chưa rõ điều đó với tôi","Đôi lúc nhận ra","Khá rõ ràng"]},
+{cat:"Cảm xúc và thích nghi",q:"Khi lo lắng về thay đổi sắp tới, tôi có thể gọi tên cảm xúc và tìm cách ứng phó phù hợp.",opts:["Thường khó làm được","Đôi khi làm được","Thường làm được"]},
+{cat:"Kết nối xã hội",q:"Tôi có người mình cảm thấy an toàn khi trò chuyện hoặc nhờ giúp đỡ.",opts:["Chưa có hoặc chưa chắc","Có một vài người","Có mạng lưới hỗ trợ tương đối rõ"]},
+{cat:"Mục đích sống",q:"Tôi có hoạt động, sở thích hoặc mục tiêu tạo ý nghĩa ngoài công việc.",opts:["Chưa xác định","Có vài ý tưởng","Có mục tiêu muốn theo đuổi"]},
+{cat:"Chuẩn bị thực tế",q:"Tôi đã suy nghĩ về nhịp sinh hoạt, sức khỏe, tài chính và môi trường sống sau nghỉ hưu.",opts:["Chưa bắt đầu","Đã chuẩn bị một phần","Có kế hoạch bước đầu"]},
+{cat:"Quan hệ gia đình",q:"Tôi có thể trao đổi với người thân về kỳ vọng và ranh giới trong giai đoạn mới.",opts:["Khó trao đổi","Đã bắt đầu trao đổi","Có thể trao đổi tương đối cởi mở"]}
+];
+const questionHost=$("#questions");
+questions.forEach((q,i)=>{const field=document.createElement("fieldset");field.className="panel";field.style.margin="1rem 0";field.innerHTML=`<legend><strong>${i+1}. ${escapeHTML(q.q)}</strong></legend><p class="tag">${escapeHTML(q.cat)}</p>`+q.opts.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j+1}" required><span>${escapeHTML(o)}</span></label>`).join("");questionHost.append(field);});
+$("#assessmentForm").addEventListener("submit",e=>{e.preventDefault();const data=new FormData(e.currentTarget);const scores=questions.map((q,i)=>({cat:q.cat,score:Number(data.get("q"+i))}));if(scores.some(x=>!x.score))return;const low=scores.filter(x=>x.score===1);const mid=scores.filter(x=>x.score===2);const box=$("#assessmentResult");box.hidden=false;box.innerHTML=`<h3>Kết quả tự phản tư</h3><p>Bài này không chẩn đoán và không xác định bạn “sẵn sàng” hay “chưa sẵn sàng”. Hãy xem đây là gợi ý để chọn chủ đề muốn quan tâm.</p><ul>${scores.map(x=>`<li><strong>${escapeHTML(x.cat)}:</strong> ${x.score===1?"Bạn muốn tìm hiểu thêm về khía cạnh này.":x.score===2?"Bạn đã có một số nguồn lực và có thể tiếp tục củng cố.":"Bạn tự nhận thấy đây là một nguồn lực hiện có."}</li>`).join("")}</ul><h4>Gợi ý bước tiếp theo</h4><p>${low.length?`Bạn có thể bắt đầu từ: ${low.map(x=>escapeHTML(x.cat.toLowerCase())).join(", ")}. `:"Hãy chọn một khía cạnh muốn duy trì hoặc phát triển thêm. "}${mid.length?"Một bước nhỏ có thể là viết ra điều bạn muốn thử trong tuần này.":"Hãy chọn một hoạt động cụ thể để duy trì nguồn lực hiện có."}</p><div class="actions"><button class="btn green" type="button" id="resultToPlan">Lập kế hoạch 30 ngày</button><button class="btn" type="button" id="resultToArticles">Đọc bài viết liên quan</button></div>`;$("#resultToPlan").addEventListener("click",()=>showView("plan"));$("#resultToArticles").addEventListener("click",()=>showView("articles"));box.focus?.();});
+$("#assessmentForm").addEventListener("reset",()=>{$("#assessmentResult").hidden=true;});
+
+const articles=[
+{id:"identity",category:"identity",label:"Bản sắc và vai trò",title:"Tìm lại bản sắc khi rời công việc",summary:"Chức danh là một phần của bản thân, không phải toàn bộ giá trị của một con người.",body:"<p>Rời công việc có thể làm thay đổi nhịp sống, quan hệ xã hội và cảm nhận về đóng góp của mình. Những cảm giác này không giống nhau ở mọi người và không nhất thiết cho thấy có vấn đề tâm lý.</p><h4>Câu hỏi tự phản tư</h4><ul><li>Điều gì ở công việc khiến tôi cảm thấy có ích?</li><li>Tôi có thể tiếp tục trải nghiệm giá trị đó theo cách nào khác?</li><li>Một hoạt động nhỏ nào tôi muốn thử trong tuần tới?</li></ul><p>Nếu cảm giác trống rỗng kéo dài, ảnh hưởng rõ đến sinh hoạt hoặc khiến bạn tuyệt vọng, hãy cân nhắc trao đổi với chuyên gia phù hợp.</p>",refs:["World Health Organization (WHO) — Ageing and health: https://www.who.int/news-room/fact-sheets/detail/ageing-and-health"]},
+{id:"family",category:"family",label:"Gia đình và quan hệ",title:"Trò chuyện với con cái đã trưởng thành",summary:"Duy trì sự gắn kết đồng thời tôn trọng quyền tự chủ của mỗi thế hệ.",body:"<p>Quan hệ giữa cha mẹ và con trưởng thành thường thay đổi khi vai trò, lịch sinh hoạt và kỳ vọng khác nhau. Có thể bắt đầu bằng câu nói về trải nghiệm của mình thay vì phán xét đối phương.</p><h4>Thử cách nói</h4><p>“Ba/mẹ muốn tìm một cách giữ liên lạc phù hợp với cả hai. Con thấy lịch nào thuận tiện?”</p><p>Hãy làm rõ mong đợi, lắng nghe câu trả lời và thương lượng một thỏa thuận có thể điều chỉnh.</p>",refs:["National Institute on Aging — Social isolation, loneliness in older people: https://www.nia.nih.gov/health/loneliness-and-social-isolation/loneliness-and-social-isolation-tips-staying-connected"]},
+{id:"emotion",category:"emotion",label:"Cảm xúc và thích nghi",title:"Đón nhận cảm xúc trong giai đoạn chuyển tiếp",summary:"Nhận diện cảm xúc là bước đầu để hiểu nhu cầu và lựa chọn hành động.",body:"<p>Thay đổi lớn có thể đi cùng nhiều cảm xúc khác nhau, kể cả nhẹ nhõm, buồn bã, lo lắng hoặc hào hứng. Thử dừng lại và gọi tên cảm xúc mà không vội phán xét.</p><h4>Bài tập 3 câu</h4><ol><li>Tôi đang cảm thấy gì?</li><li>Điều gì có thể góp phần tạo ra cảm xúc đó?</li><li>Một hành động nhỏ, an toàn và hữu ích tôi có thể làm là gì?</li></ol><p>Bài tập này là hoạt động tự phản tư, không thay thế chăm sóc sức khỏe tâm thần.</p>",refs:["WHO — Mental health of older adults: https://www.who.int/news-room/fact-sheets/detail/mental-health-of-older-adults"]},
+{id:"wellbeing",category:"wellbeing",label:"Sức khỏe tinh thần",title:"Xây dựng nhịp sống có ý nghĩa",summary:"Tạo nhịp sinh hoạt linh hoạt, kết hợp nghỉ ngơi, kết nối và hoạt động có ý nghĩa.",body:"<p>Không có một lịch trình lý tưởng cho tất cả mọi người. Bạn có thể thử kết hợp hoạt động thể chất phù hợp khả năng, kết nối xã hội, sở thích và thời gian nghỉ ngơi.</p><h4>Thử lập lịch tuần</h4><ul><li>Một hoạt động giúp cơ thể vận động phù hợp.</li><li>Một cuộc trò chuyện hoặc hoạt động kết nối.</li><li>Một việc học hỏi hoặc sáng tạo.</li><li>Một khoảng thời gian nghỉ ngơi có chủ đích.</li></ul>",refs:["WHO — Mental health of older adults: https://www.who.int/news-room/fact-sheets/detail/mental-health-of-older-adults"]}
+];
+const catNames={identity:"Bản sắc và vai trò",family:"Gia đình và quan hệ",emotion:"Cảm xúc và thích nghi",wellbeing:"Sức khỏe tinh thần"};
+function renderArticles(){const q=$("#articleSearch").value.trim().toLocaleLowerCase("vi");const c=$("#articleCategory").value;const found=articles.filter(a=>(c==="all"||a.category===c)&&(a.title+" "+a.summary+" "+a.label).toLocaleLowerCase("vi").includes(q));$("#articleList").innerHTML=found.length?found.map(a=>`<article class="card"><p class="tag">${escapeHTML(a.label)}</p><h3>${escapeHTML(a.title)}</h3><p>${escapeHTML(a.summary)}</p><div class="actions"><button class="btn green" data-open-article="${a.id}">Đọc bài</button><button class="btn" data-speak-article="${a.id}">🔊 Nghe đọc</button></div><div class="article-body" id="body-${a.id}">${a.body}<h4>Nguồn tham khảo</h4><ul>${a.refs.map(r=>`<li><a href="${escapeHTML(r.split(": https://")[1]?"https://"+r.split(": https://")[1]:"#")}" target="_blank" rel="noopener noreferrer">${escapeHTML(r.split(": https://")[0])}</a></li>`).join("")}</ul><p class="small muted">Bài viết giáo dục; nên được chuyên gia rà soát trước khi công bố chính thức.</p></div></article>`).join(""):`<p>Không tìm thấy bài phù hợp. Hãy thử từ khóa hoặc chủ đề khác.</p>`;$$("[data-open-article]").forEach(b=>b.addEventListener("click",()=>{const body=$("#body-"+b.dataset.openArticle);body.classList.toggle("open");b.textContent=body.classList.contains("open")?"Thu gọn bài":"Đọc bài";}));$$("[data-speak-article]").forEach(b=>b.addEventListener("click",()=>{const a=articles.find(x=>x.id===b.dataset.speakArticle);const temp=document.createElement("div");temp.innerHTML=a.body;speak(a.title+". "+a.summary+". "+temp.textContent); }));}
+$("#articleSearch").addEventListener("input",renderArticles);$("#articleCategory").addEventListener("change",renderArticles);renderArticles();
+
+$("#planForm").addEventListener("submit",e=>{e.preventDefault();const obj={goal:$("#goal").value.trim(),why:$("#whyGoal").value.trim(),firstStep:$("#firstStep").value.trim(),updatedAt:new Date().toISOString()};const ok=safeWrite(STORE.plan,obj);$("#planStatus").hidden=false;$("#planStatus").textContent=ok?"Đã lưu kế hoạch trên trình duyệt hiện tại. Hãy chọn thời điểm cụ thể để thực hiện bước đầu tiên.":"Không thể lưu. Trình duyệt có thể đang chặn bộ nhớ cục bộ.";});
+$("#loadPlan").addEventListener("click",()=>{const p=safeRead(STORE.plan);if(!p){$("#planStatus").hidden=false;$("#planStatus").textContent="Chưa có kế hoạch được lưu trên thiết bị này.";return;}$("#goal").value=p.goal||"";$("#whyGoal").value=p.why||"";$("#firstStep").value=p.firstStep||"";$("#planStatus").hidden=false;$("#planStatus").textContent="Đã tải kế hoạch từ thiết bị này.";});
+$("#journalForm").addEventListener("submit",e=>{e.preventDefault();const entry={prompt:$("#journalPrompt").value,text:$("#journalText").value,updatedAt:new Date().toISOString()};const ok=safeWrite(STORE.journal,entry);$("#journalStatus").hidden=false;$("#journalStatus").textContent=ok?"Đã lưu ghi chú trên trình duyệt hiện tại.":"Không thể lưu ghi chú.";});
+$("#clearJournal").addEventListener("click",()=>{localStorage.removeItem(STORE.journal);$("#journalText").value="";$("#journalStatus").hidden=false;$("#journalStatus").textContent="Đã xóa ghi chú trên thiết bị này.";});
+
+function getArray(key){const v=safeRead(key);return Array.isArray(v)?v:[];}
+$("#supportForm").addEventListener("submit",e=>{e.preventDefault();if(!$("#supportConsent").checked)return;const item={id:"DEMO-"+Date.now().toString().slice(-7),alias:$("#supportAlias").value.trim(),contact:$("#supportContact").value.trim(),topic:$("#supportTopic").value,message:$("#supportMessage").value.trim(),status:"Mới (demo)",createdAt:new Date().toISOString()};const all=getArray(STORE.requests);all.unshift(item);const ok=safeWrite(STORE.requests,all);const box=$("#supportStatus");box.hidden=false;box.textContent=ok?`Đã tạo yêu cầu demo ${item.id} trên thiết bị này. Chưa có thông tin nào được gửi đến chuyên gia.`:"Không thể lưu yêu cầu trên thiết bị.";if(ok)e.currentTarget.reset();});
+$("#bookingDate").min=new Date().toISOString().slice(0,10);
+$("#bookingForm").addEventListener("submit",e=>{e.preventDefault();if(!$("#bookingConsent").checked)return;const item={id:"BOOK-"+Date.now().toString().slice(-7),type:$("#bookingType").value,date:$("#bookingDate").value,slot:$("#bookingSlot").value,alias:$("#bookingAlias").value.trim(),contact:$("#bookingContact").value.trim(),status:"Chờ xác nhận (demo)",createdAt:new Date().toISOString()};const all=getArray(STORE.bookings);all.unshift(item);const ok=safeWrite(STORE.bookings,all);const box=$("#bookingStatus");box.hidden=false;box.textContent=ok?`Đã lưu lịch demo ${item.id}. Lịch chưa được xác nhận với chuyên gia.`:"Không thể lưu lịch trên thiết bị.";if(ok)e.currentTarget.reset();});
+$("#cancelBooking").addEventListener("click",()=>{const all=getArray(STORE.bookings);if(!all.length){$("#bookingStatus").hidden=false;$("#bookingStatus").textContent="Không có lịch demo để hủy.";return;}all.shift();safeWrite(STORE.bookings,all);$("#bookingStatus").hidden=false;$("#bookingStatus").textContent="Đã xóa lịch demo mới nhất trên thiết bị. Đây không phải thao tác hủy lịch thật.";});
+function renderAdmin(){const req=getArray(STORE.requests),books=getArray(STORE.bookings);$("#adminRequests").innerHTML=req.length?req.map(x=>`<article class="card"><strong>${escapeHTML(x.id)}</strong><p>${escapeHTML(x.topic)}</p><p>${escapeHTML(x.alias||"Không cung cấp biệt danh")}</p><p class="small">${escapeHTML(x.status)}</p></article>`).join(""):"<p>Chưa có yêu cầu demo trên thiết bị này.</p>";$("#adminBookings").innerHTML=books.length?books.map(x=>`<article class="card alt"><strong>${escapeHTML(x.id)}</strong><p>${escapeHTML(x.date)} · ${escapeHTML(x.slot)}</p><p>${escapeHTML(x.type)}</p><p class="small">${escapeHTML(x.status)}</p></article>`).join(""):"<p>Chưa có lịch demo trên thiết bị này.</p>";$("#adminArticles").innerHTML=articles.map(x=>`<article class="card"><strong>${escapeHTML(x.title)}</strong><p>${escapeHTML(catNames[x.category])}</p><p class="small">Bản mẫu tĩnh · chưa có CMS</p></article>`).join("");}
+$("#refreshAdmin").addEventListener("click",renderAdmin);$("#clearDemoData").addEventListener("click",()=>{if(!confirm("Xóa toàn bộ kế hoạch, nhật ký, yêu cầu và lịch demo đã lưu trên trình duyệt này?"))return;Object.values(STORE).forEach(k=>localStorage.removeItem(k));$("#adminStatus").textContent="Đã xóa dữ liệu demo trên thiết bị này.";renderAdmin();});
+renderAdmin();
+</script>
+</body>
+</html>
