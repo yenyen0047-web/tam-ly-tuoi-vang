@@ -1,60 +1,306 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tâm Lý Tuổi Vàng - Lộ Trình Hưu Trí An Yên & Thong Dong</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        porcelain: { 50: '#FBFBF7', 100: '#FBF9F5', 200: '#F3EFE6', 300: '#E6DFC2' },
-                        jade: { 100: '#EBF3EE', 500: '#4A7C59', 600: '#3A6346', 700: '#2A4933' },
-                        terracotta: { 100: '#F9EFEA', 500: '#C86D51', 600: '#A9533B' },
-                        slate: { 700: '#334155', 800: '#1E293B', 900: '#0F172A' }
-                    },
-                    fontFamily: {
-                        sans: ['System-UI', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>Tâm Lý Tuổi Vàng - Lộ Trình Hưu Trí An Yên</title>
     <style>
-        .font-size-sm { font-size: 15px; line-height: 1.6; }
-        .font-size-base { font-size: 18px; line-height: 1.7; }
-        .font-size-lg { font-size: 21px; line-height: 1.8; }
-        .font-size-xl { font-size: 24px; line-height: 1.9; }
-        .bg-pattern { background-image: radial-gradient(#4A7C59 0.5px, transparent 0.5px); background-size: 16px 16px; opacity: 0.08; }
+        :root {
+            --porcelain: #FBF9F5;
+            --porcelain-dark: #F3EFE6;
+            --jade: #4A7C59;
+            --jade-dark: #2A4933;
+            --terracotta: #C86D51;
+            --slate: #334155;
+            --bg-main: #FBF9F5;
+            --text-main: #334155;
+            --card-bg: #FFFFFF;
+        }
+        body.dark-mode {
+            --porcelain: #0F172A;
+            --porcelain-dark: #1E293B;
+            --jade: #4A7C59;
+            --jade-dark: #EBF3EE;
+            --terracotta: #C86D51;
+            --slate: #F1F5F9;
+            --bg-main: #0F172A;
+            --text-main: #F1F5F9;
+            --card-bg: #1E293B;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); font-size: 18px; line-height: 1.7; transition: background 0.3s, color 0.3s; }
+        
+        /* Accessibility Bar */
+        .accessibility-bar { background-color: var(--porcelain-dark); padding: 10px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 10px; }
+        .accessibility-bar button { padding: 5px 12px; background: #fff; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .accessibility-bar button:hover { background: var(--jade); color: #fff; }
+
+        /* Header */
+        header { background-color: var(--porcelain); padding: 25px 20px; border-bottom: 1px solid #e2dcc8; text-align: center; }
+        header h1 { color: var(--jade-dark); font-size: 32px; margin-bottom: 5px; }
+        header p { color: var(--slate); font-size: 16px; }
+        nav { margin-top: 15px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        nav a { color: var(--jade); text-decoration: none; font-weight: bold; }
+        nav a:hover { color: var(--terracotta); }
+
+        /* Hero */
+        .hero { background-color: var(--jade); color: white; padding: 50px 20px; text-align: center; }
+        .hero h2 { font-size: 30px; margin-bottom: 15px; }
+        .hero p { font-size: 18px; max-width: 700px; margin: 0 auto 25px auto; opacity: 0.95; }
+        .btn { background-color: var(--terracotta); color: white; padding: 12px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; font-size: 16px; }
+        .btn:hover { opacity: 0.9; }
+
+        /* Container */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+
+        /* Sections */
+        section { background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
+        h3 { color: var(--jade-dark); font-size: 24px; margin-bottom: 15px; }
+        .subtitle { color: var(--terracotta); font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+
+        /* Grid */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: var(--porcelain); padding: 20px; border-radius: 8px; border-left: 5px solid var(--jade); display: flex; flex-direction: column; justify-content: space-between; }
+        .card.alt { border-left-color: var(--terracotta); }
+
+        /* Quiz */
+        .quiz-box { background: var(--porcelain); padding: 20px; border-radius: 8px; margin-bottom: 15px; }
+        .quiz-options label { display: block; background: var(--card-bg); padding: 10px 15px; margin-top: 8px; border-radius: 6px; cursor: pointer; border: 1px solid #ddd; }
+        .quiz-options label:hover { border-color: var(--jade); }
+
+        /* Form */
+        input, textarea { width: 100%; padding: 12px; margin-top: 6px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; background: var(--card-bg); color: var(--text-main); font-size: 16px; }
+
+        /* Footer */
+        footer { background: var(--jade-dark); color: white; text-align: center; padding: 30px 20px; margin-top: 50px; }
+        
+        .audio-btn { background: none; border: none; color: var(--jade); font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 15px; }
+        .audio-btn:hover { text-decoration: underline; }
     </style>
 </head>
-<body class="bg-porcelain-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 font-size-base min-h-screen flex flex-col justify-between">
+<body id="main-body">
 
     <!-- Accessibility Bar -->
-    <div class="bg-porcelain-200 dark:bg-slate-800 border-b border-porcelain-300 dark:border-slate-700 py-2 px-4 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center text-sm gap-2">
-            <div class="flex items-center gap-2">
-                <span class="font-semibold text-jade-700 dark:text-jade-100"><i class="fa-solid fa-universal-access mr-1"></i> Hỗ trợ đọc:</span>
-                <button onclick="changeFontSize('sm')" class="px-2 py-1 bg-white dark:bg-slate-700 rounded border hover:bg-jade-100 font-bold">A-</button>
-                <button onclick="changeFontSize('base')" class="px-2 py-1 bg-white dark:bg-slate-700 rounded border hover:bg-jade-100 font-bold">A</button>
-                <button onclick="changeFontSize('lg')" class="px-2 py-1 bg-white dark:bg-slate-700 rounded border hover:bg-jade-100 font-bold">A+</button>
-                <button onclick="changeFontSize('xl')" class="px-2 py-1 bg-white dark:bg-slate-700 rounded border hover:bg-jade-100 font-bold">A++</button>
-            </div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDarkMode()" class="flex items-center gap-1 text-slate-700 dark:text-slate-200 font-medium hover:text-jade-600">
-                    <i class="fa-solid fa-circle-half-stroke"></i> <span id="mode-text">Độ tương phản cao</span>
-                </button>
-                <button onclick="stopAudio()" class="text-terracotta-500 font-medium hidden" id="stop-audio-btn">
-                    <i class="fa-solid fa-circle-stop"></i> Dừng đọc
-                </button>
-            </div>
+    <div class="accessibility-bar">
+        <div>
+            <span style="font-weight: bold; color: var(--jade);">Hỗ trợ đọc:</span>
+            <button onclick="setFontSize(16)">A-</button>
+            <button onclick="setFontSize(18)">A</button>
+            <button onclick="setFontSize(21)">A+</button>
+            <button onclick="setFontSize(24)">A++</button>
+        </div>
+        <div>
+            <button onclick="toggleTheme()" id="theme-btn">🌙 Chế độ tối / Tương phản cao</button>
+            <button onclick="stopSpeech()" style="color: red; display: none;" id="stop-btn">⏹ Dừng đọc</button>
         </div>
     </div>
 
-    <!-- Header Navigation -->
-    <header class="bg-porcelain-50 dark:bg-slate-800 border-b border-porcelain-200 dark:border-slate-700">
-        <div class="max-w-6xl mx-auto px-4
+    <!-- Header -->
+    <header>
+        <h1>Tâm Lý Tuổi Vàng</h1>
+        <p>Chuẩn bị tâm thế – Sống đời hưu trí thong dong & an yên</p>
+        <nav>
+            <a href="#trac-nghiem">Trắc Nghiệm</a>
+            <a href="#kien-thuc">Kiến Thức</a>
+            <a href="#lo-trinh">Lộ Trình Hưu Trí</a>
+            <a href="#tu-van">Tư Vấn Giấu Tên</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h2>Chào mừng bạn đến với Chương Đời Thứ Hai</h2>
+        <p>Nghỉ hưu không phải là sự kết thúc, mà là khởi đầu cho hành trình tái định nghĩa giá trị bản thân, chăm sóc sức khỏe tinh thần và tận hưởng sự an yên nội tâm.</p>
+        <button class="btn" onclick="speakText('Chào mừng bạn đến với Tâm Lý Tuổi Vàng. Đây là trang web đồng hành cùng người trung niên và người cao tuổi chuẩn bị tâm lý, tài chính và lối sống cho giai đoạn hưu trí an yên.')">🔊 Nghe giới thiệu trang web</button>
+    </div>
+
+    <div class="container">
+
+        <!-- 1. Trắc Nghiệm -->
+        <section id="trac-nghiem">
+            <span class="subtitle">Đánh Giá Tương Tác</span>
+            <h3>Bạn đã sẵn sàng tâm lý cho tuổi hưu trí?</h3>
+            <p style="margin-bottom: 20px;">Trả lời nhanh 3 câu hỏi dưới đây để xem mức độ sẵn sàng tâm thế của bạn.</p>
+            
+            <div class="quiz-box">
+                <p><strong>1. Khi nghĩ về ngày đầu tiên chính thức nghỉ hưu, bạn cảm thấy thế nào?</strong></p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q1" value="1"> Hoang mang, lo lắng vì mất đi thói quen công việc.</label>
+                    <label><input type="radio" name="q1" value="2"> Bình thường, nhưng hơi băn khoăn chưa biết làm gì.</label>
+                    <label><input type="radio" name="q1" value="3"> Hào hứng, sẵn sàng mở ra chương mới.</label>
+                </div>
+            </div>
+
+            <div class="quiz-box">
+                <p><strong>2. Bạn đã chuẩn bị thói quen hoặc sở thích cho thời gian rảnh rỗi chưa?</strong></p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q2" value="1"> Chưa, trước giờ tôi chỉ tập trung làm việc.</label>
+                    <label><input type="radio" name="q2" value="2"> Đã có một vài thói quen nhỏ như đọc sách, đi bộ.</label>
+                    <label><input type="radio" name="q2" value="3"> Đã có danh sách việc muốn làm và học kỹ năng mới.</label>
+                </div>
+            </div>
+
+            <div class="quiz-box">
+                <p><strong>3. Mức độ chia sẻ tâm tư với gia đình/bạn bè về giai đoạn sắp tới?</strong></p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q3" value="1"> Ít khi nói ra, tự mình lo lắng suy nghĩ.</label>
+                    <label><input type="radio" name="q3" value="2"> Thỉnh thoảng trao đổi với người thân.</label>
+                    <label><input type="radio" name="q3" value="3"> Thường xuyên trò chuyện cởi mở về cảm xúc.</label>
+                </div>
+            </div>
+
+            <button class="btn" onclick="submitQuiz()">Xem Kết Quả & Nhận Xét</button>
+            <div id="quiz-result" style="margin-top: 20px; padding: 20px; background: var(--porcelain); border-radius: 8px; display: none;"></div>
+        </section>
+
+        <!-- 2. Kiến Thức -->
+        <section id="kien-thuc">
+            <span class="subtitle">Cẩm Nang Tri Thức</span>
+            <h3>Bài Viết Chuyên Sâu</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <div>
+                        <span style="font-size: 13px; color: var(--jade); font-weight: bold;">Tâm Lý & Bản Sắc</span>
+                        <h4 style="margin: 10px 0;">Vượt qua cảm giác "Mất định danh" khi ngừng làm việc</h4>
+                        <p style="font-size: 16px;" id="p1">Khi rời xa vị trí công việc gắn bó nhiều năm, nhiều người trải qua cảm giác hẫng hẫng. Bài viết giải mã hiện tượng tâm lý này và gợi ý 3 bước chuyển giao nhẹ nhàng.</p>
+                    </div>
+                    <button class="audio-btn" onclick="speakElement('p1')">🔊 Nghe đọc bài này</button>
+                </div>
+
+                <div class="card alt">
+                    <div>
+                        <span style="font-size: 13px; color: var(--terracotta); font-weight: bold;">Gia Đình</span>
+                        <h4 style="margin: 10px 0;">Nghệ thuật trò chuyện cùng con cái đã trưởng thành</h4>
+                        <p style="font-size: 16px;" id="p2">Làm sao để duy trì sự gắn kết ấm áp mà vẫn tôn trọng không gian riêng tư của con? Tìm hiểu phương pháp giao tiếp thấu hiểu thế hệ.</p>
+                    </div>
+                    <button class="audio-btn" onclick="speakElement('p2')">🔊 Nghe đọc bài này</button>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <span style="font-size: 13px; color: var(--jade); font-weight: bold;">Sức Khỏe Trí Não</span>
+                        <h4 style="margin: 10px 0;">Giữ gìn sự minh mẫn và trí nhớ cho tuổi 50+</h4>
+                        <p style="font-size: 16px;" id="p3">Các bài tập nhận thức đơn giản mỗi ngày giúp rèn luyện não bộ, phòng ngừa suy giảm trí nhớ và nâng cao chất lượng giấc ngủ tự nhiên.</p>
+                    </div>
+                    <button class="audio-btn" onclick="speakElement('p3')">🔊 Nghe đọc bài này</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Lộ Trình Hưu Trí -->
+        <section id="lo-trinh">
+            <span class="subtitle">Kế Hoạch Hành Động</span>
+            <h3>Lộ Trình Chuẩn Bị 3 Giai Đoạn</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <h4>Giai đoạn 1: Trước hưu 3-5 năm</h4>
+                    <ul style="padding-left: 20px; font-size: 16px; margin-top: 10px;">
+                        <li>Rà soát lại tài chính hưu trí.</li>
+                        <li>Khám sức khỏe tổng quát định kỳ.</li>
+                        <li>Bắt đầu tìm kiếm sở thích mới.</li>
+                    </ul>
+                </div>
+                <div class="card alt">
+                    <h4>Giai đoạn 2: Trước hưu 1 năm</h4>
+                    <ul style="padding-left: 20px; font-size: 16px; margin-top: 10px;">
+                        <li>Sắp xếp lại không gian sống.</li>
+                        <li>Trò chuyện cởi mở cùng bạn đời.</li>
+                        <li>Lên lịch trình cho những tuần đầu.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Giai đoạn 3: Chính thức nghỉ hưu</h4>
+                    <ul style="padding-left: 20px; font-size: 16px; margin-top: 10px;">
+                        <li>Duy trì nhịp sinh học đều đặn.</li>
+                        <li>Tham gia hoạt động cộng đồng.</li>
+                        <li>Chăm sóc sâu sắc đời sống nội tâm.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Tư Vấn Giấu Tên -->
+        <section id="tu-van">
+            <span class="subtitle">Kết Nối Chuyên Gia</span>
+            <h3>Góc Thư Tư Vấn Giấu Tên</h3>
+            <p style="margin-bottom: 20px;">Bạn có những trăn trở tâm lý chưa biết bộc bạch cùng ai? Hãy gửi thư để nhận phản hồi.</p>
+            <form onsubmit="handleForm(event)">
+                <label>Xung danh / Biệt danh:</label>
+                <input type="text" required placeholder="Ví dụ: Chú An (55 tuổi, TPHCM)">
+                <label>Trăn trở tâm lý của bạn:</label>
+                <textarea rows="4" required placeholder="Chia sẻ suy nghĩ hoặc câu hỏi của bạn tại đây..."></textarea>
+                <button type="submit" class="btn">Gửi Thư Tư Vấn Giấu Tên</button>
+            </form>
+            <p id="form-msg" style="color: var(--jade); font-weight: bold; margin-top: 15px; display: none;">Cảm ơn bạn đã tin tưởng chia sẻ. Chuyên gia tâm lý sẽ phản hồi bạn sớm!</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p><strong>Tâm Lý Tuổi Vàng - Lộ Trình Hưu Trí An Yên</strong></p>
+        <p style="font-size: 14px; margin-top: 5px; opacity: 0.8;">Đồng hành cùng giai đoạn tuổi vàng rực rỡ và bình an.</p>
+    </footer>
+
+    <!-- JavaScript Xử Lý -->
+    <script>
+        function setFontSize(size) {
+            document.body.style.fontSize = size + 'px';
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        let currentSpeech = null;
+        function speakText(text) {
+            window.speechSynthesis.cancel();
+            currentSpeech = new SpeechSynthesisUtterance(text);
+            currentSpeech.lang = 'vi-VN';
+            currentSpeech.rate = 0.9;
+            document.getElementById('stop-btn').style.display = 'inline-block';
+            currentSpeech.onend = () => document.getElementById('stop-btn').style.display = 'none';
+            window.speechSynthesis.speak(currentSpeech);
+        }
+
+        function speakElement(id) {
+            speakText(document.getElementById(id).innerText);
+        }
+
+        function stopSpeech() {
+            window.speechSynthesis.cancel();
+            document.getElementById('stop-btn').style.display = 'none';
+        }
+
+        function submitQuiz() {
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+
+            if (!q1 || !q2 || !q3) {
+                alert("Vui lòng trả lời đủ 3 câu hỏi để xem kết quả!");
+                return;
+            }
+
+            const score = parseInt(q1.value) + parseInt(q2.value) + parseInt(q3.value);
+            const resBox = document.getElementById('quiz-result');
+            resBox.style.display = 'block';
+
+            let msg = "";
+            if (score <= 4) {
+                msg = "<strong>Mức độ: Cần thêm thời gian chuẩn bị tâm thế.</strong><br>Bạn có thể đang cảm thấy lo lắng hoặc trống trải khi nghĩ về hưu trí. Hãy bắt đầu từ việc trò chuyện nhiều hơn với người thân và thử sức với một sở thích nhỏ mỗi ngày.";
+            } else if (score <= 7) {
+                msg = "<strong>Mức độ: Đã có sự chuẩn bị bước đầu.</strong><br>Bạn đã có nhận thức tích cực và bắt đầu hình thành các thói quen tốt. Tiếp tục duy trì các mục tiêu ý nghĩa cho chương đời mới nhé!";
+            } else {
+                msg = "<strong>Mức độ: Sẵn sàng tuyệt đối cho Tuổi Vàng An Yên!</strong><br>Bạn đang sở hữu tâm thế vô cùng chủ động, cởi mở và tràn đầy năng lượng để tận hưởng giai đoạn hưu trí rực rỡ nhất.";
+            }
+            resBox.innerHTML = msg;
+        }
+
+        function handleForm(e) {
+            e.preventDefault();
+            document.getElementById('form-msg').style.display = 'block';
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
